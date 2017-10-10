@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="log-path">/logs</Property>
+	</Properties>
+  <Appenders>
+    <Console name="Console">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <RollingFile name="RollingFile" fileName="${log-path}/springBootSample.log" filePattern="${log-path}/springBootSample-%d{yyyy-MM-dd}-%i.log" append="true" >
+		<PatternLayout>
+			<pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS}- %c{1}: %m%n</pattern>
+		</PatternLayout>
+		<Policies>
+			<SizeBasedTriggeringPolicy size="1MB" />
+		</Policies> 
+		<DefaultRolloverStrategy max="4"/>
+	</RollingFile>
+    
+  </Appenders>
+  <Loggers>
+    <logger name="root" level="debug">
+    		<appender-ref ref="Console" level="debug" />
+    </logger>
+    <logger name="com.demoapp" level="debug">
+    		<appender-ref ref="RollingFile" />
+    </logger>
+    <Root level="info">
+    		<AppenderRef ref="RollingFile" />
+    		<AppenderRef ref="Console" />
+    </Root>
+  </Loggers>
+</Configuration>
